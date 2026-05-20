@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import type { Resume } from '../../types/resume'
 import styles from './EditorLayout.module.css'
+import ProfileEditor from './ProfileEditor'
 
 // These are the sections visible on the sidebar.
 type Section = 'profile' | 'skills' | 'experience' | 'projects' | 'education' | 'settings'
@@ -34,7 +35,9 @@ function EditorLayout({ resume, updateResume }: Props) {
 
             {/* CONTENT - show which section is active */}
             <div className={styles.content}>
-                <p> Editing: {activeSection} </p>
+                {activeSection === 'profile' && (
+                    <ProfileEditor resume={resume} updateResume={updateResume} />
+                )}
             </div>
         </div>
     )
