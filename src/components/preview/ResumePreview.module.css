@@ -1,0 +1,119 @@
+/* Outer panel */
+.panel {
+    padding: 24px;
+    background: var(--color-bg);
+    min-height: 100%;
+    overflow: hidden;
+}
+
+/* Resume page — 0.5in margins on all sides, matching template.tex geometry */
+.page {
+    background: #ffffff;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    padding: 48px;                          /* 0.5in at 96dpi */
+    font-family: Georgia, 'Palatino Linotype', serif;
+    font-size: 11pt;
+    line-height: 1.25;
+    color: #000;
+    transform-origin: top left;
+}
+
+/* \centerline{\Huge Name} */
+.name {
+    font-size: 25pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 0 5px;                        /* \vspace{5pt} */
+}
+
+/* \centerline{contact line} then \vspace{-10pt} */
+.contact {
+    text-align: center;
+    font-size: 10pt;
+    margin: 0 0 -4px;                       /* simulate \vspace{-10pt} */
+}
+
+/* \section* — \bfseries\large + \titlerule */
+.section {
+    margin-top: 6px;
+}
+
+.sectionHeading {
+    font-size: 12pt;                        /* \large at 11pt base */
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid #000;          /* \titlerule */
+    padding-bottom: 0;
+    margin: 0 0 0;
+    line-height: 1.4;
+}
+
+/* Skills: \textbf{Label:} skills \\ */
+.skillsBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: 10.5pt;
+    line-height: 1.25;
+    margin-bottom: -3px;                    /* \vspace{-6.5pt} after skills */
+}
+
+/* Experience / project entry */
+.entry {
+    margin-bottom: 0;
+}
+
+/* \textbf{Title,} Company -- Location \hfill Dates \\ */
+.entryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 10.5pt;
+    line-height: 1.3;
+}
+
+.dates {
+    white-space: nowrap;
+    font-size: 10.5pt;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+.url {
+    white-space: nowrap;
+    font-size: 10pt;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+/*
+ * \setlist[itemize]{itemsep=-2pt, leftmargin=12pt, topsep=7pt}
+ * + \vspace{-9pt} before each list = net ~0 gap above bullets
+ * itemsep=-2pt = bullets slightly closer than normal line spacing
+ */
+.bullets {
+    margin: -1px 0 1px 0;
+    padding-left: 12px;                     /* leftmargin=12pt */
+    list-style-type: disc;
+    font-size: 10.5pt;
+}
+
+.bullets li {
+    line-height: 1.25;
+    margin-bottom: -2px;                    /* itemsep=-2pt */
+    padding-left: 1px;
+}
+
+/* \vspace{-18.5pt} between experience→projects and projects→education */
+.tightSection {
+    margin-top: 1px;
+}
+
+/* Education: \textbf{School} -- Degree \hfill Date (no bullets) */
+.eduEntry {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 10.5pt;
+    line-height: 1.3;
+}
