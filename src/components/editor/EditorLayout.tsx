@@ -2,6 +2,11 @@ import {useState} from 'react'
 import type { Resume } from '../../types/resume'
 import styles from './EditorLayout.module.css'
 import ProfileEditor from './ProfileEditor'
+import SkillsEditor from './SkillsEditor'
+import EducationEditor from './EducationEditor'
+import ExperienceEditor from './ExperienceEditor'
+import ProjectsEditor from './ProjectsEditor'
+import SettingsEditor from './SettingsEditor'
 
 // These are the sections visible on the sidebar.
 type Section = 'profile' | 'skills' | 'experience' | 'projects' | 'education' | 'settings'
@@ -38,6 +43,23 @@ function EditorLayout({ resume, updateResume }: Props) {
                 {activeSection === 'profile' && (
                     <ProfileEditor resume={resume} updateResume={updateResume} />
                 )}
+                {activeSection === 'skills' && (
+                    <SkillsEditor resume={resume} updateResume={updateResume} />
+                )}
+                {activeSection === 'education' && (
+                    <EducationEditor resume={resume} updateResume={updateResume} />
+                )}
+                {activeSection === 'experience' && (
+                    <ExperienceEditor resume={resume} updateResume={updateResume} />
+                )}
+                {activeSection === 'projects' && (
+                    <ProjectsEditor resume={resume} updateResume={updateResume} />
+                )}
+                {activeSection === 'settings' && (
+                    <SettingsEditor resume={resume} updateResume={updateResume} />
+                )}
+
+
             </div>
         </div>
     )

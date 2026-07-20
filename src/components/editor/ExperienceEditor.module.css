@@ -1,0 +1,145 @@
+.editor {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-fg);
+}
+
+/* Each experience entry is a card */
+.entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-surface);
+}
+
+.entryHeader {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr auto;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.dateRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.currentLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    cursor: pointer;
+}
+
+.bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.25rem;
+}
+
+.bulletRow {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+.input,
+.bulletInput {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-fg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+}
+
+.input:focus,
+.bulletInput:focus {
+    border-color: var(--color-accent);
+}
+
+.input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.addBtn,
+.addBulletBtn {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    background: none;
+    border: 1px solid var(--color-accent);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+}
+
+.addBulletBtn {
+    align-self: flex-start;
+    margin-top: 0.15rem;
+}
+
+.removeBtn {
+    background: none;
+    border: none;
+    color: var(--color-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.25rem;
+}
+
+.removeBtn:hover {
+    color: var(--color-fg);
+}
+
+.moveBtn {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    color: var(--color-muted);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.35rem;
+}
+
+.moveBtn:hover:not(:disabled) {
+    color: var(--color-fg);
+    border-color: var(--color-fg);
+}
+
+.moveBtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.emptyMessage {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    font-style: italic;
+}
