@@ -1,5 +1,5 @@
 import type { Resume } from '../../types/resume'
-import styles from './SkillsEditor.module.css'
+import styles from './editor.module.css'
 
 interface Props {
     resume: Resume
@@ -39,27 +39,28 @@ function SkillsEditor({ resume, updateResume }: Props) {
                 <button className={styles.addBtn} onClick={addGroup}>+ Add Group</button>
             </div>
 
+            {resume.skills.length === 0 && (
+                <p className={styles.empty}>No skill groups yet. Click &quot;+ Add Group&quot; to start.</p>
+            )}
+
             {resume.skills.map((group, i) => (
-                <div key={i} className={styles.row}>
+                <div key={i} className={styles.skillRow}>
                     <input
-                        className={styles.labelInput}
+                        className={styles.input}
                         placeholder="Category (e.g. Languages)"
                         value={group.label}
                         onChange={e => updateGroup(i, 'label', e.target.value)}
                     />
                     <input
-                        className={styles.skillsInput}
+                        className={styles.input}
                         placeholder="Skills (e.g. TypeScript, Python)"
                         value={group.skills}
                         onChange={e => updateGroup(i, 'skills', e.target.value)}
                     />
-                    <button className={styles.removeBtn} onClick={() => removeGroup(i)}>✕</button>
+                    <button className={styles.removeBtn} title="Remove group"
+                        onClick={() => removeGroup(i)}>✕</button>
                 </div>
             ))}
-
-            {resume.skills.length === 0 && (
-                <p className={styles.empty}>No skill groups yet. Click &quot;+ Add Group&quot; to start.</p>
-            )}
         </div>
     )
 }

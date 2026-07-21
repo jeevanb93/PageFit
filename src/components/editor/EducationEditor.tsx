@@ -1,5 +1,5 @@
 import type { Resume } from '../../types/resume'
-import styles from './EducationEditor.module.css'
+import styles from './editor.module.css'
 
 interface Props {
     resume: Resume
@@ -12,7 +12,7 @@ function EducationEditor({ resume, updateResume }: Props) {
     function addEducation() {
         updateResume({
             ...resume,
-            education: [...resume.education, { id: Date.now(), school:'', degree:'', location:'', date:'' }]
+            education: [...resume.education, { id: Date.now(), school: '', degree: '', location: '', date: '' }]
         })
     }
 
@@ -25,7 +25,7 @@ function EducationEditor({ resume, updateResume }: Props) {
 
     function updateEducation(i: number, field: 'school' | 'degree' | 'location' | 'date', value: string) {
         const updated = resume.education.map((group, idx) =>
-            idx === i ? { ...group, [field]:value } :  group
+            idx === i ? { ...group, [field]: value } : group
         )
         updateResume({ ...resume, education: updated })
     }
@@ -37,42 +37,42 @@ function EducationEditor({ resume, updateResume }: Props) {
                 <button className={styles.addBtn} onClick={addEducation}>+ Add Education</button>
             </div>
 
+            {resume.education.length === 0 && (
+                <p className={styles.empty}>No education entries yet. Click &quot;+ Add Education&quot; to start.</p>
+            )}
+
             {resume.education.map((group, i) => (
-                <div key={i} className={styles.row}>
+                <div key={group.id} className={styles.educationRow}>
                     <input
-                        className={styles.labelInput}
+                        className={styles.input}
                         placeholder="School"
                         value={group.school}
-                        onChange={e=>updateEducation(i, 'school', e.target.value)}
+                        onChange={e => updateEducation(i, 'school', e.target.value)}
                     />
                     <input
-                        className={styles.labelInput}
+                        className={styles.input}
                         placeholder="Degree"
                         value={group.degree}
-                        onChange={e=>updateEducation(i, 'degree', e.target.value)}
+                        onChange={e => updateEducation(i, 'degree', e.target.value)}
                     />
                     <input
-                        className={styles.labelInput}
+                        className={styles.input}
                         placeholder="Location"
                         value={group.location}
-                        onChange={e=>updateEducation(i, 'location', e.target.value)}
+                        onChange={e => updateEducation(i, 'location', e.target.value)}
                     />
                     <input
-                        className={styles.labelInput}
+                        className={styles.input}
                         placeholder="Date"
                         value={group.date}
-                        onChange={e=>updateEducation(i, 'date', e.target.value)}
+                        onChange={e => updateEducation(i, 'date', e.target.value)}
                     />
-                    <button className={styles.removeBtn} onClick={() => removeEducation(i)}>✕</button>
+                    <button className={styles.removeBtn} title="Remove entry"
+                        onClick={() => removeEducation(i)}>✕</button>
                 </div>
             ))}
-
-            {resume.education.length === 0 && (
-                <p className={styles.emptyMessage}>No education entries yet. Click "Add Education" to start.</p>
-            )}
         </div>
     )
 }
-
 
 export default EducationEditor

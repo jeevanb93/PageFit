@@ -1,5 +1,5 @@
 import type { Resume, Experience } from '../../types/resume'
-import styles from './ExperienceEditor.module.css'
+import styles from './editor.module.css'
 
 interface Props {
     resume: Resume
@@ -30,6 +30,17 @@ function ExperienceEditor({ resume, updateResume }: Props) {
     function updateEntry(i: number, field: keyof Experience, value: string | boolean) {
         setEntries(resume.experience.map((entry, idx) =>
             idx === i ? { ...entry, [field]: value } : entry
+        ))
+    }
+
+    // Tick "Present" and clear the end date in a single update — two separate
+    // updateEntry calls would both read the same stale `resume` and the second
+    // would discard the first.
+    function setCurrent(i: number, checked: boolean) {
+        setEntries(resume.experience.map((entry, idx) =>
+            idx === i
+                ? { ...entry, current: checked, endDate: checked ? '' : entry.endDate }
+                : entry
         ))
     }
 
@@ -78,14 +89,14 @@ function ExperienceEditor({ resume, updateResume }: Props) {
             </div>
 
             {resume.experience.length === 0 && (
-                <p className={styles.emptyMessage}>No experience yet. Click &quot;+ Add Experience&quot; to start.</p>
+                <p className={styles.empty}>No experience yet. Click &quot;+ Add Experience&quot; to start.</p>
             )}
 
             {resume.experience.map((entry, i) => (
                 <div key={entry.id} className={styles.entry}>
 
                     {/* Row 1: title, company, location */}
-                    <div className={styles.entryHeader}>
+                    <div className={styles.experienceHeader}>
                         <input className={styles.input} placeholder="Job Title"
                             value={entry.title}
                             onChange={e => updateEntry(i, 'title', e.target.value)} />
@@ -95,7 +106,8 @@ function ExperienceEditor({ resume, updateResume }: Props) {
                         <input className={styles.input} placeholder="Location"
                             value={entry.location}
                             onChange={e => updateEntry(i, 'location', e.target.value)} />
-                        <button className={styles.removeBtn} onClick={() => removeEntry(i)}>✕</button>
+                        <button className={styles.removeBtn} title="Remove entry"
+                            onClick={() => removeEntry(i)}>✕</button>
                     </div>
 
                     {/* Row 2: dates + current checkbox */}
@@ -110,10 +122,7 @@ function ExperienceEditor({ resume, updateResume }: Props) {
                         <label className={styles.currentLabel}>
                             <input type="checkbox"
                                 checked={entry.current}
-                                onChange={e => {
-                                    updateEntry(i, 'current', e.target.checked)
-                                    if (e.target.checked) updateEntry(i, 'endDate', '')
-                                }} />
+                                onChange={e => setCurrent(i, e.target.checked)} />
                             Present
                         </label>
                     </div>
@@ -122,16 +131,17 @@ function ExperienceEditor({ resume, updateResume }: Props) {
                     <div className={styles.bullets}>
                         {entry.bullets.map((bullet, j) => (
                             <div key={j} className={styles.bulletRow}>
-                                <input className={styles.bulletInput} placeholder="Bullet point"
+                                <textarea className={styles.bulletInput} placeholder="Bullet point"
+                                    rows={2}
                                     value={bullet}
                                     onChange={e => updateBullet(i, j, e.target.value)} />
-                                <button className={styles.moveBtn}
+                                <button className={styles.moveBtn} title="Move up"
                                     disabled={j === 0}
                                     onClick={() => moveBullet(i, j, 'up')}>↑</button>
-                                <button className={styles.moveBtn}
+                                <button className={styles.moveBtn} title="Move down"
                                     disabled={j === entry.bullets.length - 1}
                                     onClick={() => moveBullet(i, j, 'down')}>↓</button>
-                                <button className={styles.removeBtn}
+                                <button className={styles.removeBtn} title="Remove bullet"
                                     onClick={() => removeBullet(i, j)}>✕</button>
                             </div>
                         ))}

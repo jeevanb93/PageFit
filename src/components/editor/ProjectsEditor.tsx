@@ -1,11 +1,10 @@
 import type { Project, Resume } from '../../types/resume'
-import styles from './ProjectsEditor.module.css'
+import styles from './editor.module.css'
 
 interface Props {
     resume: Resume
     updateResume: (r: Resume) => void
 }
-
 
 function ProjectsEditor({ resume, updateResume }: Props) {
 
@@ -28,7 +27,7 @@ function ProjectsEditor({ resume, updateResume }: Props) {
     }
 
     // Update a single field on entry i
-    function updateEntry(i: number, field: keyof Project, value: string | boolean) {
+    function updateEntry(i: number, field: keyof Project, value: string) {
         setEntries(resume.projects.map((entry, idx) =>
             idx === i ? { ...entry, [field]: value } : entry
         ))
@@ -85,36 +84,38 @@ function ProjectsEditor({ resume, updateResume }: Props) {
             {resume.projects.map((entry, i) => (
                 <div key={entry.id} className={styles.entry}>
 
-                    <div className={styles.entryHeader}>
+                    <div className={styles.projectHeader}>
                         <input
-                            className={styles.titleInput}
+                            className={styles.input}
                             placeholder="Project Title"
                             value={entry.title}
                             onChange={e => updateEntry(i, 'title', e.target.value)}
                         />
                         <input
-                            className={styles.urlInput}
+                            className={styles.input}
                             placeholder="Project URL"
                             value={entry.url}
                             onChange={e => updateEntry(i, 'url', e.target.value)}
                         />
-                        <button className={styles.removeBtn} onClick={() => removeEntry(i)}>✕</button>
+                        <button className={styles.removeBtn} title="Remove project"
+                            onClick={() => removeEntry(i)}>✕</button>
                     </div>
 
                     {/* Bullets */}
                     <div className={styles.bullets}>
                         {entry.bullets.map((bullet, j) => (
                             <div key={j} className={styles.bulletRow}>
-                                <input className={styles.bulletInput} placeholder="Bullet point"
+                                <textarea className={styles.bulletInput} placeholder="Bullet point"
+                                    rows={2}
                                     value={bullet}
                                     onChange={e => updateBullet(i, j, e.target.value)} />
-                                <button className={styles.moveBtn}
+                                <button className={styles.moveBtn} title="Move up"
                                     disabled={j === 0}
                                     onClick={() => moveBullet(i, j, 'up')}>↑</button>
-                                <button className={styles.moveBtn}
+                                <button className={styles.moveBtn} title="Move down"
                                     disabled={j === entry.bullets.length - 1}
                                     onClick={() => moveBullet(i, j, 'down')}>↓</button>
-                                <button className={styles.removeBtn}
+                                <button className={styles.removeBtn} title="Remove bullet"
                                     onClick={() => removeBullet(i, j)}>✕</button>
                             </div>
                         ))}
