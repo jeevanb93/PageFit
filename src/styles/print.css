@@ -1,0 +1,32 @@
+/* Print / "Save as PDF": show only the resume page, unscaled and unstyled by the app chrome. */
+@media print {
+  body {
+    background: #fff;
+  }
+
+  /* Hide everything, then walk the resume page's ancestors back into view. */
+  body * {
+    visibility: hidden;
+  }
+
+  #pagefit-page,
+  #pagefit-page * {
+    visibility: visible;
+  }
+
+  #pagefit-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* The on-screen preview is scaled down to fit the panel; print at 100%. */
+    transform: none !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #pagefit-page-wrapper {
+    width: auto !important;
+    height: auto !important;
+  }
+}
